@@ -1,11 +1,6 @@
+#include "ft_list.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct	s_list
-{
-	struct s_list	*next;
-	void			*data;
-}				t_list;
 
 t_list	*gen_struct(t_list *next, int *data)
 {
@@ -18,7 +13,13 @@ t_list	*gen_struct(t_list *next, int *data)
 	return (st);
 }
 
-void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)());
+int cmp(void *data1, void *data2)
+{
+	printf("cmp %d with %d\n", *(int *)data1, *(int *)data2);	
+	if (*(int *)data1 == *(int *)data2)
+		return (0);
+	return (1);
+}
 
 int	main(void)
 {
@@ -26,6 +27,8 @@ int	main(void)
 	t_list	*b;
 	t_list	*c;
 	t_list	*pos;
+	t_list	*tmp;
+	void	*cmp_data;
 
 	int	a_data = 3;
 	int	b_data = 4;
@@ -35,14 +38,16 @@ int	main(void)
 	b = gen_struct(c, &b_data);
 	a = gen_struct(b, &a_data);
 
+	cmp_data = &b_data;
+	ft_list_remove_if(&a, cmp_data, cmp);
+
 	pos = a;
 	while (pos)
 	{
+		tmp = pos;
 		pos = pos->next;
+		printf("free addr: %p\n", tmp);
+		free(tmp);
 	}
-	free(a);
-	free(b);
-	free(c);
-	//free(a);
 	return (0);
 }
