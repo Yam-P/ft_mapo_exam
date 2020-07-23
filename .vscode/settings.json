@@ -1,0 +1,9 @@
+{
+  "editor.tabSize": 4,
+  "editor.insertSpaces": false,
+  "editor.renderWhitespace": "all",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "42header.email": "taehokim@student.42seoul.kr",
+  "42header.username": "taehokim"
+}
