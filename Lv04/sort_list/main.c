@@ -7,9 +7,9 @@ t_list	*gen_struct(t_list *next, int data)
 	t_list	*st;
 	
 	st = (t_list *)malloc(sizeof(t_list));
-	printf("addr: %p\n", st);
 	st->next = next;
 	st->data = data;
+	printf("addr: %p, data: %d\n", st, st->data);
 	return (st);
 }
 
@@ -26,30 +26,31 @@ int	main(void)
 	t_list	*d;
 	t_list	*e;
 	t_list	*pos;
-	t_list	*tmp;
+//	t_list	*tmp;
 
-	int	a_data = 5;
-	int	b_data = 4;
-	int	c_data = 3;
-	int	d_data = 2;
-	int	e_data = 1;
+	e = gen_struct(NULL, 1);
+	d = gen_struct(e, 2);
+	c = gen_struct(d, 3);
+	b = gen_struct(c, 4);
+	a = gen_struct(b, 5);
 
-	e = gen_struct(NULL, e_data);
-	d = gen_struct(e, d_data);
-	c = gen_struct(d, c_data);
-	b = gen_struct(c, b_data);
-	a = gen_struct(b, a_data);
-
-	t_list	*res = sort_list(a, ascending);
-
-	pos = res;
+	printf("before sort==================\n");
+	pos = a;
 	while (pos)
 	{
-		tmp = pos;
+		printf("addr: %p, data: %d\n", pos, pos->data);
 		pos = pos->next;
+	}
+	pos = sort_list(a, ascending);
+
+	printf("after sort===================\n");
+	while (pos)
+	{
+		//tmp = pos;
 		printf("data: %d\n", pos->data);
-		printf("free addr: %p\n", tmp);
-		free(tmp);
+		pos = pos->next;
+		//printf("free addr: %p\n", tmp);
+	//	free(tmp);
 	}
 	return (0);
 }
